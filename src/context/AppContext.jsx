@@ -23,8 +23,8 @@ export default function AppContextProvider({ children }) {
       url += `&category=${category}` 
     }
     try {
-      const res = await fetch(url);
-      const data = await res.json(); 
+      const result = await fetch(url);
+      const data = await result.json(); 
 
       if (!data.posts || data.posts.length === 0)
         throw new Error("Something Went Wrong");
@@ -32,7 +32,9 @@ export default function AppContextProvider({ children }) {
       setPage(data.page);
       setPosts(data.posts);
       setTotalPages(data.totalPages);
+
     } catch (error) {
+
       console.log("Error in Fetching BlogPosts", error);
       setPage(1);
       setPosts([]);
@@ -43,7 +45,7 @@ export default function AppContextProvider({ children }) {
 
   // Handle When Next and Previous button are clicked
   const handlePageChange = (page) => {
-    navigate( { search: `?page = ${page}`});
+    navigate( { search: `?page=${page}`});
     setPage(page);
 
    
@@ -62,5 +64,7 @@ export default function AppContextProvider({ children }) {
     handlePageChange,
   };
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return <AppContext.Provider value={value}>
+    {children}
+  </AppContext.Provider>;
 }

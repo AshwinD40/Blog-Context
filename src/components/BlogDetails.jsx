@@ -4,26 +4,26 @@ import { NavLink } from 'react-router-dom'
 function BlogDetails({post}) {
     
   return (
-    <div className=' mt-[50px]'>
+    <div className=' my-4  w-11/12 max-w-[670px] mx-auto items-center justify-center'>
         <NavLink to={`/blog/${post.id}`}>
-            <span>{post.title}</span>
+            <span className=' font-bold text-black text-xl'>{post.title}</span>
         </NavLink>
-        <p>
+        <p className=' text-[13px] mt-1 '>
             By
-            <span>{post.author}</span>
+            <span className=' italic' >{post.author}</span>
             on {" "}
             <NavLink to={`/categories/${post.category.replaceAll(" ", "-")}`}>
-                <span>{post.category} </span>
+                <span className=' underline font-bold'>{post.category} </span>
             </NavLink>
         </p>
-        <p>
-            Posted On {post.date};
+        <p className=' text-[13px] mt-1 text-zinc-900 '>
+            Posted On: {post.date}
         </p>
-        <p> {post.content}</p>
-        <div>
+        <p className=' text-[15px] mt-3'> {post.content}</p>
+        <div className=' flex gap-x-3'>
             {post.tags.map( (tag, index) => (
                 <NavLink key={index} to={`/tags/${tag.replaceAll(" ", "-")}`}>
-                    <span>{`#${tag}`}</span>
+                    <span className=' text-blue-500 underline font-bold text-sm' key={index}>{`#${tag}`}</span>
                 </NavLink>
             ))}
         </div>

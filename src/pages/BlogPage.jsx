@@ -24,19 +24,16 @@ function BlogPage() {
         try{
             const res  = await fetch(url);
             const data = await res.json();
-
             setBlog(data.blog);
-            setRelatedblogs(data.relatedBlogs);
-             
+            setRelatedblogs(data.relatedBlogs);       
         }
         catch(error){
-            console.log(" Error Aa rha BC");
+            console.log(" Error");
             setBlog(null);
             setRelatedblogs([]);
         }
         setLoading(false);
     }
-
     useEffect( () => {
         if(blogId) {
             fetchRelatedBlogs();
@@ -45,38 +42,32 @@ function BlogPage() {
 
   return (
     
-    <div>
-         <Header/>
-         <div>
-            <button onClick={() => navigation(-1)}>
+    <div > 
+        <Header/>
+        <div className=' w-11/12 py-12 max-w-[670px] mx-auto mt-12  '>
+            <button onClick={() => navigation(-1)}
+                className=' py-2 px-3 rounded-md bg-black text-white font-bold'>
                 Back
             </button>
          </div>
-         {
-            loading ?
-             ( <p>loading</p> )
-            :
-            blog ?
-             (
-                <div>
+         { loading 
+            ? ( <p className=' flex font-bold text-3xl justify-center items-center '>loading</p> )
+            : blog 
+                ?(<div className=' max-w-[670px] mx-auto '>
                     <BlogDetails post={blog}/>
-                    <h2 className=' text-3xl font-bold'>Related Blogs</h2>
- 
-                    {
-                        relatedblogs.map((post) => (
-                            <div key={post.id}>
-                                <BlogDetails post = {post}/>
-                            </div>
-                        ))
-                    }
-                
+                    <h2 className=' text-3xl font-bold text-center text-green-700 py-2 bg-slate-400 rounded-md mx-auto'>
+                        Related Blogs
+                    </h2>
+                    { relatedblogs.map((post) => (
+                        <div key={post.id}>
+                            <BlogDetails post = {post}/>
+                        </div>
+                    ))}              
                 </div>
              ) :
-
-                (<div>
+                (<div className=''>
                     No Blog Found
-                </div> )
-               
+                </div> )               
          }
     </div>
   )
